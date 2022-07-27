@@ -1,0 +1,46 @@
+.navigation { 
+    background-color: #F1F3FF;
+    opacity: 98%;
+    z-index: 2;
+}
+.navigation a:hover {
+    background-color: white;
+}
+
+@media only screen and (max-width: 767px) {
+    
+    .menu-container {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: rgba(0,0,0, 0.9);
+        overflow-x: hidden;
+        transition: 0.5s;
+    }
+
+    .overlay-content {
+        width: 50%;
+        height: 100%;
+        padding-top: 10%;
+        padding-left: 2%;
+        padding-right: 10%;
+        flex-direction: column;
+        gap: 18px;
+        position: absolute;
+        right: 0;
+        background-color: #FFFFFF;
+    }
+
+    .overlay-content__top {
+        justify-content: space-between;
+    }
+    
+    .menu {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+}

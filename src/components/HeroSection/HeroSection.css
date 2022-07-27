@@ -1,0 +1,23 @@
+.hero-sec {
+    height: auto;
+    padding-top: 10%;
+    background-color: #F1F3FF;
+    gap: 4%;
+}
+
+.hero-desc {
+    flex: 1;
+}
+
+.hero-right {
+    flex: 1;
+    right: 0;
+}
+
+@media only screen and (max-width: 767px) {
+    .hero-sec {
+        flex-direction: column;
+        padding-top: 25%;
+        gap: 24px;
+    }
+}

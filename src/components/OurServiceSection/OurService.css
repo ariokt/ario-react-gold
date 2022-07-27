@@ -1,0 +1,42 @@
+.our-service {
+    width: 75%;
+    margin: 100px 0 50px 0;
+    gap: 4%;
+}
+
+.our-service__left {
+    flex: 1;
+}
+
+.our-service__right {
+    padding-top: 4%;
+    flex: 1;
+}
+
+.our-service__right p {
+    margin-bottom: 0;
+}
+
+.our-service__list {
+    gap: 18px;
+}
+
+.our-service__list p {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 767px) {
+    .our-service {
+        width: 100%;
+        padding: 0 4%;
+    }
+
+    .our-service__left {
+        margin-bottom: 24px;
+    }
+
+    .our-service__list {
+        gap: 16px;
+    }
+}

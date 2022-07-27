@@ -1,0 +1,14 @@
+.cta-banner-sec {
+    width: 80%;
+    border-radius: 13px;
+    text-align: center;
+    margin: 50px auto;
+    background: #0D28A6;
+    color: white;
+}
+
+@media only screen and (max-width: 767px) {
+    .cta-banner-sec {
+        width: 90%;
+    }
+}

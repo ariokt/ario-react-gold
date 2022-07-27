@@ -1,0 +1,22 @@
+.testimonial__top {
+    margin-bottom: 40px;
+}
+
+.slider-button {
+    padding: 6px 12px;
+    border-radius: 50%;
+    border: none;
+}
+
+.slider-button:hover {
+    background-color: #5CB85F;;
+}
+
+@media only screen and (max-width: 767px) {
+    .testimonial__top {
+        padding: 0 16px;
+        text-align: center;
+        margin-bottom: 16px;
+    }
+    
+}
