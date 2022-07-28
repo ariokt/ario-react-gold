@@ -58,6 +58,7 @@ const CarList = () => {
   }
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     getCars()
   }, [])
   //Ambil data API END
