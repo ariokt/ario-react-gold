@@ -1,18 +1,16 @@
+import Footer from '../../components/Footer';
+import Navbar from '../../components/Navbar';
+import NotFoundSection from '../../components/NotFoundSection';
 import React, { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom';
-import Navbar from '../../components/Navbar/Navbar';
 import styled from '@emotion/styled'
+import { useParams, Link } from 'react-router-dom';
 import userImg from '../../assets/fi_users.png'
 
 import Button from '@mui/material/Button';
-import Footer from '../../components/Footer/Footer';
-import { CircularProgress } from '@mui/material';
-import NotFound from '../NotFound/NotFound';
-import NotFoundSection from '../../components/NotFoundSection/NotFoundSection';
 
 const URL = `https://bootcamp-rent-car.herokuapp.com/admin/car`
 
-const DetailInfo = styled.section`
+const DetailInfo = styled.div`
   display: flex;
   width: 80%;
   margin: 50px auto;
@@ -25,7 +23,7 @@ const DetailInfo = styled.section`
   }
 `;
 
-const FilterContainer = styled.section`
+const FilterContainer = styled.div`
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
   border-radius: 8px;
   width: 80%; 
@@ -104,6 +102,7 @@ const List = styled.li`
 
 const CarDetail = () => {
   const [car, setCar] = useState({});
+  const [handleError, setHandleError] = useState(false)
   const { id } = useParams();
 
   async function getCars() {
@@ -112,7 +111,8 @@ const CarDetail = () => {
       const dataDetail = await request.json();
       setCar(dataDetail)
     } catch (error) {
-      
+      console.log(error)
+      setHandleError(true)
     }
   }
 
@@ -121,9 +121,11 @@ const CarDetail = () => {
   },[])
   
   return (
+    
     <>
+    
       <Navbar />
-      {(car === null  || typeof id !== Number) ? <NotFoundSection/>
+      {(car === null || car.name === "SequelizeDatabaseError") ? <NotFoundSection/>
       :(
         <>
           <div style={{height:"20vh", background:"#F1F3FF"}}></div>

@@ -2,7 +2,7 @@ import React from 'react'
 import { TextField, FormControl, InputLabel, Select, MenuItem, Button, Autocomplete } from '@mui/material'
 import { useState } from 'react'
 
-const Filter = ({pNama, pKategori, pHarga, pStatus, pFiltering, availCars}) => {
+const Filter = ({handleNamaMobil, handleKategori, handleHarga, handleStatus, handleFiltering, availCars}) => {
 
     const [value, setValue] = useState(availCars[0]);
 
@@ -24,17 +24,16 @@ const Filter = ({pNama, pKategori, pHarga, pStatus, pFiltering, availCars}) => {
     }
 
     const buttonClicked = () => {
-        pNama(namaMobil);
-        pKategori(kategori);
-        pHarga(harga);
-        pStatus(status);
-        pFiltering(1);       
+        handleNamaMobil(namaMobil);
+        handleKategori(kategori);
+        handleHarga(harga);
+        handleStatus(status);
+        handleFiltering(1);       
     }
 
     
   return (
-    <>
-         
+    <>      
         <FormControl sx={{
                            display:"flex",
                            flexDirection: {xs:"column", sm:"row"},
@@ -63,10 +62,10 @@ const Filter = ({pNama, pKategori, pHarga, pStatus, pFiltering, availCars}) => {
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
+                    MenuProps={{ disableScrollLock: true}}
                     value={kategori}
                     label="Kategori"
-                    onChange={changeKategori}
-                >
+                    onChange={changeKategori} >
                     <MenuItem value={"2 - 4 orang"}>2 - 4 orang</MenuItem>
                     <MenuItem value={"4 - 6 orang"}>4 - 6 orang</MenuItem>
                     <MenuItem value={"6 - 8 orang"}>6 - 8 orang</MenuItem>
@@ -77,10 +76,10 @@ const Filter = ({pNama, pKategori, pHarga, pStatus, pFiltering, availCars}) => {
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
+                    MenuProps={{ disableScrollLock: true}}
                     value={harga}
                     label="Harga"
-                    onChange={changeHarga}
-                >
+                    onChange={changeHarga} >
                     <MenuItem value={"400000"}>{"< Rp. 400.000"}</MenuItem>
                     <MenuItem value={"400000-600000"}>Rp. 400.000 - Rp. 600.000</MenuItem>
                     <MenuItem value={"600000"}>{"> Rp. 600.000"}</MenuItem>
@@ -91,10 +90,10 @@ const Filter = ({pNama, pKategori, pHarga, pStatus, pFiltering, availCars}) => {
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
+                    MenuProps={{ disableScrollLock: true}}
                     value={status}
                     label="Disewa"
-                    onChange={changeStatus}
-                >
+                    onChange={changeStatus} >
                     <MenuItem value={"false"}>Disewakan</MenuItem>
                     <MenuItem value={"true"}>Tidak Disewakan</MenuItem>
                 </Select>

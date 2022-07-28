@@ -4,12 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import React, { useRef, useState } from "react";
 import Slider from "react-slick";
-import TestimonialCard from "../TestimonialCard/TestimonialCard";
+import TestimonialCard from "../TestimonialCard";
 import './TestimonialSection.css'
 
 const Testimonial = () => {
 
-  const [dataTestimoni] = useState([
+  const dataTestimoni = [
     {
       id: 1,
       image: customerImage1,
@@ -31,7 +31,7 @@ const Testimonial = () => {
       testimoni: "Aplikasinya lumayan lengkap. Jadi membantu saya untuk mencari mobil yang saya inginkan",
       identitas: "Andra, Bandung"
     }
-  ]);
+  ];
 
   const slider = useRef();
 
@@ -59,6 +59,7 @@ const Testimonial = () => {
     ],
     speed: 500 
   };
+
 
   return (
     <>

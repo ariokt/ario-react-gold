@@ -1,17 +1,13 @@
-import HeroSection from '../../components/HeroSection/HeroSection'
-import Filter from '../../components/Filter/Filter'
-import Footer from '../../components/Footer/Footer'
-import Navbar from '../../components/Navbar/Navbar'
+import Filter from '../../components/Filter'
+import Footer from '../../components/Footer'
+import HeroSection from '../../components/HeroSection'
+import Navbar from '../../components/Navbar'
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import styled from '@emotion/styled'
-import Typography from '@mui/material/Typography';
+import CarCard from '../../components/CarCard'
+import CarCardSkeleton from '../../components/CarCardSkeleton'
 
 const URL = `https://bootcamp-rent-car.herokuapp.com/admin/car`
 
@@ -23,7 +19,7 @@ const CarList = () => {
     }
   `;
   
-  const CardContainer = styled.section`
+  const CardContainer = styled.div`
     width: 80%;
     margin: 0 auto 100px auto;
     gap: 1vw;
@@ -32,11 +28,9 @@ const CarList = () => {
     }
   `;
 
-  let navigate = useNavigate();
-
   const [loadError, setLoadError] = useState(false); //untuk parameter apakah data dari API eror atau tidak
   const [cars, setCars] = useState([]); //untuk simpan seluruh data
-  const [availCars, setAvailCars] = useState([]);
+  const [availCars, setAvailCars] = useState([]); // nama mobile tersedia, untuk autocomplete
   const [displayedCars, setDisplayedCars] = useState([]); //untuk nampung data after filter
 
   const [filtered, setFiltered] = useState(0); //untuk trigger useeffect yang akan melakukan filter data
@@ -52,8 +46,9 @@ const CarList = () => {
       const request = await fetch(URL);
       const data = await request.json();
       setCars(data);
+      setDisplayedCars(data);
 
-      let listCar = [... new Set(data.map(car => car.name))].filter(Boolean);
+      let listCar = [... new Set(data.map(car => car.price !== null && car.name))].filter(Boolean);
       listCar.unshift("");
       setAvailCars(listCar);
 
@@ -68,25 +63,27 @@ const CarList = () => {
   //Ambil data API END
 
   // Untuk menerima nilai dari filter
-  const filterNama = (value) => {
+  const handleNamaMobil = (value) => {
     setNamaMobil(value)
   }
 
-  const filterKategori = (value) => {
+  const handleKategori = (value) => {
     setKategori(value)
   }
 
-  const filterHarga = (value) => {
+  const handleHarga = (value) => {
     setHarga(value)
   }
 
-  const filterStatus = (value) => {
+  const handleStatus = (value) => {
     setStatus(value)
   }
 
-  const filtering = (value) => {
+  const handleFiltering = (value) => {
     setFiltered(filtered + value)
   }
+
+  const props = {handleNamaMobil, handleKategori, handleHarga, handleStatus, handleFiltering, availCars}
   // Untuk menerima nilai dari filter END
 
   
@@ -279,53 +276,32 @@ const CarList = () => {
 }, [filtered])
 // Untuk melakukan filtering dari state cars dan simpan hasil END
 
-const handleDetail = (id) => navigate(`/car-list/${id}`)
+
 
   return (
-    <>
-      
+    <>   
       <Navbar />
       <HeroCustom>
         <HeroSection />
       </HeroCustom>
       {loadError && <h2 style={{width:"fit-content", margin:"50px auto"}}>Koneksi Bermasalah, mohon untuk reload halaman</h2>}       
-      <Filter pNama={filterNama} pKategori={filterKategori} pHarga={filterHarga} pStatus={filterStatus} pFiltering={filtering} availCars={availCars}/>
-      { (displayedCars.length === 0 && filtered > 0) ? (<div style={{width:"fit-content", margin:"50px auto"}}>Maaf, kriteria yang kamu cari tidak ditemukan</div>) : 
-      (
-        <CardContainer className='d-flex flex-column flex-md-row flex-wrap'>
-          {displayedCars.map(car => (
-            <Card key={car.id} sx={{ width: {xs:"100%", md:"32%"},
-                                      mb: {xs:"16px", sm:"24px"},
-                                      p: {xs:"16px", sm:"24px"}
-                                  }}>
-              <CardMedia
-                sx={{ width:"80%",
-                      objectFit:"scale-down",
-                      height:"160px",
-                      marginX:"auto"
-                  }}
-                component="img"
-                image={car.image}
-                alt="gambar mobil"
-              />
-              <CardContent sx={{padding:"0", mb: {xs:"16px", sm:"24px"}}}>
-                <Typography gutterBottom variant="p2" component="div">
-                  {car.name}
-                </Typography>
-                <Typography sx={{fontWeight:"bold"}} gutterBottom variant="p" component="div">
-                  Rp {Intl.NumberFormat('ID').format(car.price)} / hari
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                </Typography>
-              </CardContent>             
-              <Button sx={{width:"100%"}} size="medium" variant="contained" color="success" className='text-capitalize' onClick={() => handleDetail(car.id)}>Pilih Mobil</Button>
-            </Card>
+      <Filter {...props}/>
+      { (displayedCars.length === 0 && filtered > 0) ? 
+      (<div style={{width:"fit-content", margin:"50px auto"}}>Maaf, kriteria yang kamu cari tidak ditemukan</div>) : 
+      ( <CardContainer className='d-flex flex-column flex-md-row flex-wrap'>
+          {cars.length === 0 && (
+            <>
+              <CarCardSkeleton />
+              <CarCardSkeleton />
+              <CarCardSkeleton />
+            </>
+          )}
+          {displayedCars.map(car => car.image !== null && (
+            <CarCard car={car} />
           ))}
         </CardContainer>
       )}
       <Footer />
-      
     </>   
   )
 }

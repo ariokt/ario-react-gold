@@ -7,14 +7,20 @@ import './Navbar.css'
 import { Link } from 'react-router-dom'
 
 const Navbar = () => {
-  const overlayMenu = useRef();
+  const closeMenu = () => {
+    overlayMenu.current.style.width= "0";
+  }
 
   const openMenu = () => {
     overlayMenu.current.style.width= "100%";
   }
-  const closeMenu = () => {
-    overlayMenu.current.style.width= "0";
-  }
+
+  const overlayMenu = useRef();
+
+  const navContent = ["Our Service", "Why Us", "Testimonial", "FAQ"]
+
+  const navContentList = [{"content": "Our Service"}, {"content": "Why Us"}, {"content": "Testimonial"}, {"content": "FAQ"}]
+
   
   
   return (
@@ -28,11 +34,8 @@ const Navbar = () => {
                       <FontAwesomeIcon icon={faXmark} className="d-block d-md-none" onClick={closeMenu}/>
                   </span>
               </div> 
-              <ul className="menu list-unstyled text-decoration-none d-flex mb-0">
-                  <li><a className='text-decoration-none px-md-4 py-md-4' style={{color:"black"}} href="#our-service-sec">Our Service</a></li>
-                  <li><a className='text-decoration-none px-md-4 py-md-4' style={{color:"black"}} href="#why-us-sec">Why Us</a></li>
-                  <li><a className='text-decoration-none px-md-4 py-md-4' style={{color:"black"}} href="#testimoni">Testimonial</a></li>
-                  <li><a className='text-decoration-none px-md-4 py-md-4' style={{color:"black"}} href="#faq">FAQ</a></li>
+              <ul className="menu list-unstyled d-flex mb-0">
+                  {navContentList.map(item => <li><a className='px-md-4 py-md-4' style={{color:"black"}} href="#our-service-sec">{item.content}</a></li>)}
               </ul>    
           </div>
       </div>
