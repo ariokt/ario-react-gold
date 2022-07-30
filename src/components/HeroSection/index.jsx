@@ -15,7 +15,7 @@ const HeroSection = () => {
                 Kami menyediakan mobil kualitas terbaik dengan harga terjangkau. 
                 Selalu siap melayani kebutuhanmu untuk sewa mobil selama 24 jam.
               </p>
-              <Link to='/car-list' style={{ textDecoration: 'none' }} className="cta-button"><Button variant="contained" color="success" className='text-capitalize'>Mulai Sewa Mobil</Button></Link>    
+              <Link to='/car-list' style={{ textDecoration: 'none', width:"fit-content" }} className="cta-button"><Button variant="contained" color="success" className='text-capitalize'>Mulai Sewa Mobil</Button></Link>    
           </div>
           <div className="hero-right">
               <img src={hero} alt="mobil" style={{width:"100%", height:"auto"}}/>
